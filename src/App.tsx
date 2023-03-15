@@ -63,6 +63,7 @@ function App() {
     color: '#fff',
     // :hover {
     cursor: 'pointer',
+    marginTop: '10px',
   };
   const badge = {
     // position: 'absolute',
