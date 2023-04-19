@@ -1,30 +1,30 @@
-import React, { FormEvent, useEffect } from 'react';
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { io } from 'socket.io-client';
-import './App.css';
-import { Bell } from 'react-feather';
+import React, { FormEvent, useEffect } from "react";
+import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { io } from "socket.io-client";
+import "./App.css";
+import { Bell } from "react-feather";
 
-const types = ['success', 'info', 'warning', 'error'];
+const types = ["success", "info", "warning", "error"];
 
 function App() {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
   const [count, setCount] = useState(0);
-  const socket = io(`https://team-cyper-ecom-main.onrender.com/`, {
+  const socket = io(`http://localhost:9090`, {
     query: {
       token: token,
     },
     autoConnect: false,
   });
 
-  socket.on('connection', () => {
+  socket.on("connection", () => {
     console.log(`I'm connected with the back-end`);
   });
-  socket.on('connectToRoom', function (data) {
+  socket.on("connectToRoom", function (data) {
     console.log(data);
   });
-  socket.on('on product create', (data) => {
+  socket.on("on product create", (data) => {
     console.log(data);
     console.log(count);
 
@@ -32,17 +32,17 @@ function App() {
     setCount(count + 1);
     console.log(count);
   });
-  socket.on('on product delete', (data) => {
+  socket.on("on product delete", (data) => {
     console.log(data);
     data.map((message: string) => notify(message));
     // setCount(count + data.length);
   });
-  socket.on('on product edit', (data) => {
+  socket.on("on product edit", (data) => {
     console.log(data);
     data.map((message: string) => notify(message));
     // setCount(count + data.length);
   });
-  socket.on('on product expiry', (data) => {
+  socket.on("on product expiry", (data) => {
     console.log(data);
     data.map((message: string) => notify(message));
     // setCount(count + data.length);
@@ -55,27 +55,29 @@ function App() {
     console.log(socket.connected);
 
     socket.connect();
+    console.log(socket.connected);
+
   };
 
   const wrapper = {
     // position: 'relative',
-    display: 'inline-block',
-    color: '#fff',
+    display: "inline-block",
+    color: "#fff",
     // :hover {
-    cursor: 'pointer',
-    marginTop: '10px',
+    cursor: "pointer",
+    marginTop: "10px",
   };
   const badge = {
     // position: 'absolute',
-    top: '-8px',
-    right: '-8px',
-    background: 'red',
-    borderRadius: '4px',
-    width: '22px',
-    height: '22px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    top: "-8px",
+    right: "-8px",
+    background: "red",
+    borderRadius: "4px",
+    width: "22px",
+    height: "22px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   };
 
   // function Trigger({ count, setCount }: Props) {
